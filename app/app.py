@@ -43,7 +43,7 @@ def get_options(bundle):
 
 
 def encode_input(bundle, age, sex, localization):
-    """Return model input. Raw-input bundles → DataFrame; legacy → np.ndarray."""
+    """Return model input. Raw-input bundles → DataFrame; pre-encoded bundles → np.ndarray."""
     if bundle.get('raw_input'):
         return pd.DataFrame([{'age': float(age), 'sex': sex, 'localization': localization}])
     sex_enc = bundle['le_sex'].transform([sex])[0]

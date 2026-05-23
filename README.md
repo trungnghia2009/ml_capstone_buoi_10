@@ -31,10 +31,10 @@ capstone-buoi-10-new/
 │   ├── svm_binary_class_model.joblib
 │   └── svm_multi_class_model.joblib
 ├── prepare_data/
-│   └── preprocess.py               # v1 helpers (legacy) + v2 (raw pipeline, group split, threshold tune)
+│   └── preprocess.py               # Shared helpers: raw pipeline, group split, threshold tune
 ├── SVM/
-│   ├── SVM_binary_class.ipynb      # Pipeline binary (v2)
-│   └── SVM_multi_class.ipynb       # Pipeline 7-class (v2)
+│   ├── SVM_binary_class.ipynb      # Pipeline binary
+│   └── SVM_multi_class.ipynb       # Pipeline 7-class
 ├── requirements.txt
 └── README.md
 ```
@@ -69,7 +69,7 @@ python -c "import pandas, numpy, sklearn, imblearn, streamlit, seaborn, joblib; 
 
 ---
 
-## Pipeline (v2)
+## Pipeline
 
 1. **Load** CSV → `load_data`.
 2. **Filter** dx không hợp lệ → `filter_valid_dx`.
@@ -90,7 +90,7 @@ python -c "import pandas, numpy, sklearn, imblearn, streamlit, seaborn, joblib; 
    ```
    - Toàn bộ encoder/imputer **fit trong CV fold** → không leak.
    - Một chiến lược cân bằng duy nhất (`class_weight`). Không stack thêm RUS/SMOTE.
-7. **GridSearchCV** với `StratifiedGroupKFold(5)` → `grid_search_tune_v2`:
+7. **GridSearchCV** với `StratifiedGroupKFold(5)` → `grid_search_tune`:
    ```
    svc__C:      [0.1, 1, 10, 100]
    svc__gamma:  ['scale', 0.001, 0.01, 0.1]
@@ -181,7 +181,7 @@ Nguồn: [Tschandl et al. 2018, HAM10000](https://www.nature.com/articles/sdata2
 
 ---
 
-## Kết quả tham khảo (sau v2)
+## Kết quả tham khảo
 
 **Binary**
 | metric | value |
@@ -226,11 +226,11 @@ Trần thấp do metadata-only. Vượt trần cần image features (CNN embeddi
 | `ModuleNotFoundError: imblearn` | Thiếu dep | `pip install imbalanced-learn` |
 | `ModuleNotFoundError: preprocess` | Sai working dir | `cd SVM` trước khi chạy notebook |
 | `KeyError: 'lesion_id'` | Drop sớm | Giữ `lesion_id` đến sau group split |
-| `ValueError: groups param not provided` | Quên `groups=` ở `gs.fit` | `grid_search_tune_v2` đã handle, kiểm tra import đúng |
+| `ValueError: groups param not provided` | Quên `groups=` ở `gs.fit` | `grid_search_tune` đã handle, kiểm tra import đúng |
 | `KeyError: 'param_C'` | Pipeline prefix | Dùng `param_svc__C` |
 | `FileNotFoundError: HAM10000_metadata.csv` | Path relative sai | Chạy notebook từ `SVM/` |
 | Streamlit "Model files not found" | Chưa chạy notebook | Run cả 2 `.ipynb` |
-| App predict crash với bundle cũ | Bundle pre-v2 không có `raw_input` | Chạy lại notebook v2 để overwrite `.joblib` |
+| App predict crash với bundle cũ | Bundle cũ không có `raw_input` | Chạy lại notebook để overwrite `.joblib` |
 | GridSearchCV chậm (>10 phút) | n_jobs ít | `n_jobs=-1` (mặc định), giảm `n_splits` nếu cần |
 
 ---
