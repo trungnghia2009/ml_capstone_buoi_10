@@ -1,0 +1,87 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+.eggs/
+build/
+dist/
+develop-eggs/
+.installed.cfg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+
+# --- Virtual envs ---
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+profile_default/
+ipython_config.py
+
+# --- Streamlit ---
+.streamlit/secrets.toml
+
+# --- ML artifacts ---
+model/*.joblib
+model/*.pkl
+model/*.h5
+*.npy
+*.npz
+mlruns/
+wandb/
+
+# --- Data (uncomment if dataset is large/private) ---
+# data/*.csv
+# data/*.parquet
+# data/raw/
+# data/processed/
+
+# --- Testing / coverage ---
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+
+# --- Type checking / linting ---
+.mypy_cache/
+.dmypy.json
+.pyre/
+.ruff_cache/
+
+# --- IDE / editor ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# --- Environment / secrets ---
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+credentials.json
+secrets.json
+
+# --- Logs / temp ---
+*.log
+logs/
+tmp/
+temp/
